@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Metadata -->
+  <title>MediGuide — Medical Information Portal & RAG Chatbot</title>
+  <meta name="description"
+    content="A premium, client-side medical information portal and AI-powered RAG chatbot following Microsoft Fluent 2 design principles. Get reliable, plain-language health information.">
+  <meta name="keywords"
+    content="medical guide, health portal, rag chatbot, medical ai, fluent 2 design, medical safety, cdc, who, mayo clinic">
+
+  <!-- Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="css/base.css?v=1.0.2">
+  <link rel="stylesheet" href="css/themes.css?v=1.0.2">
+  <link rel="stylesheet" href="css/animations.css?v=1.0.2">
+  <link rel="stylesheet" href="css/layout.css?v=1.0.2">
+  <link rel="stylesheet" href="css/components.css?v=1.0.2">
+  <link rel="stylesheet" href="css/chatbot.css?v=1.0.2">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+
+<body>
+
+  <div id="app-container">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar" role="banner">
+      <div class="nav-left">
+        <!-- Hamburger Menu for Mobile -->
+        <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Logo and Brand -->
+        <div id="logo-container" class="logo-container" role="button" tabindex="0" aria-label="MediGuide Home">
+          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+            </path>
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="logo-text">MediGuide</span>
+        </div>
+
+        <!-- Navigation Menu with Mega Menu -->
+        <nav id="nav-menu" class="nav-menu" role="navigation">
+          <div class="nav-item">
+            <a href="#/diseases" class="nav-link">
+              Diseases A–Z
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <!-- Mega Menu Dropdown -->
+            <div class="mega-menu" aria-label="Disease Categories">
+              <div class="mega-grid">
+                <div>
+                  <div class="mega-column-title">General Categories</div>
+                  <ul class="mega-list">
+                    <li class="mega-list-item"><a href="#/categories/infectious">🦠 Infectious Diseases</a></li>
+                    <li class="mega-list-item"><a href="#/categories/chronic">❤️ Chronic Conditions</a></li>
+                    <li class="mega-list-item"><a href="#/categories/digestive">🍎 Digestive & Gut</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <div class="mega-column-title">Other Areas</div>
+                  <ul class="mega-list">
+                    <li class="mega-list-item"><a href="#/categories/mental">🧠 Neurological & Mental</a></li>
+                    <li class="mega-list-item"><a href="#/categories/skin">🛡️ Skin Conditions</a></li>
+                    <li class="mega-list-item"><a href="#/diseases"
+                        style="font-weight: 600; color: var(--color-brand);">Browse All A-Z ➔</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item"><a href="#/first-aid" class="nav-link">First Aid</a></div>
+          <div class="nav-item"><a href="#/healthy-living" class="nav-link">Healthy Living</a></div>
+          <div class="nav-item"><a href="#/medicines" class="nav-link">Medicines</a></div>
+          <div class="nav-item"><a href="#/faq" class="nav-link">FAQ</a></div>
+        </nav>
+      </div>
+
+      <div class="nav-right">
+        <!-- Search input box in Navbar -->
+        <div class="nav-search-container">
+          <div class="input-container">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="header-search-input" class="input-field" placeholder="Search portal..."
+              aria-label="Search medical database">
+            <button id="header-search-clear" class="input-clear-btn" aria-label="Clear Search Input">✕</button>
+            <!-- Suggestions flyout -->
+            <div id="header-search-suggestions" class="search-suggestions" role="listbox"></div>
+          </div>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-btn" class="btn btn-secondary btn-icon" aria-label="Toggle Light/Dark Theme">
+          <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <!-- Injected by theme.js -->
+          </svg>
+        </button>
+
+        <!-- Floating Chat Trigger in Header for Desktop -->
+        <button id="header-chat-btn" class="btn btn-primary" aria-label="Open Chatbot Helper">
+          <span>💬</span> Chat Assistant
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container for Router Injections -->
+    <main id="main-content" role="main">
+      <!-- SPA Content injected here by app.js -->
+    </main>
+
+    <!-- Footer with medical disclaimer -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-content">
+        <!-- Persistent medical disclaimer -->
+        <div id="footer-disclaimer">
+          <!-- Injected dynamically by app.js -->
+        </div>
+
+        <div class="footer-bottom">
+          <div>
+            © 2026 MediGuide Health Portal. All rights reserved. 100% client-side education.
+          </div>
+          <div class="footer-links">
+            <a href="#/">Home</a>
+            <a href="#/diseases">Diseases A-Z</a>
+            <a href="#/first-aid">First Aid</a>
+            <a href="#/faq">FAQ & Support</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==================== RAG CHATBOT UI PANEL ==================== -->
+
+  <!-- Floating Button (Bottom-Right) -->
+  <button id="chatbot-trigger-btn" class="chatbot-trigger-btn chatbot-pulse" aria-label="Open Medical Chat Assistant"
+    title="Ask MediGuide AI">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <!-- Chatbot Panel container -->
+  <div id="chatbot-panel" class="chatbot-panel" role="dialog" aria-label="MediGuide AI Assistant">
+
+    <!-- Desktop Resizer Handle (Top Edge) -->
+    <div id="chatbot-resize-handle" class="chatbot-resize-handle" title="Drag to resize vertically"></div>
+
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar-initials">MG</div>
+        <div>
+          <div class="chat-header-title">MediGuide AI</div>
+          <div class="chat-header-subtitle">Educational Assistant</div>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <!-- Settings Gear Icon for Groq API Key -->
+        <button id="chat-settings-btn" class="chat-action-btn" aria-label="Chatbot Settings" title="Configure API Key">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
+            </path>
+          </svg>
+        </button>
+        <!-- Close Button -->
+        <button id="chat-close-btn" class="chat-action-btn" aria-label="Close Chatbot Panel" title="Close Panel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- API Key Settings overlay inside Chatbot -->
+    <div id="chat-settings-overlay" class="chat-settings-overlay">
+      <h3 style="margin-bottom: var(--spacing-s); font-size: 1.1rem;">Configure API Connection</h3>
+      <p style="font-size: 0.8125rem; margin-bottom: var(--spacing-m); line-height: 1.4;">To chat with our medical
+        knowledge base, please enter a Groq API Key. It is stored securely on your device.</p>
+
+      <div style="display: flex; flex-direction: column; gap: var(--spacing-xs); margin-bottom: var(--spacing-m);">
+        <label for="groq-key-input"
+          style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--color-text-tertiary);">Groq
+          API Key</label>
+        <input type="password" id="groq-key-input" class="input-field" placeholder="gsk_..."
+          style="padding-left: var(--spacing-m);">
+        <span style="font-size: 0.7rem; color: var(--color-text-tertiary);">Get a free key from <a
+            href="https://console.groq.com/" target="_blank" rel="noopener">console.groq.com</a></span>
+      </div>
+
+      <div style="display: flex; gap: var(--spacing-s); justify-content: flex-end;">
+        <button id="settings-cancel-btn" class="btn btn-secondary btn-pill">Cancel</button>
+        <button id="settings-save-btn" class="btn btn-primary btn-pill">Save Key</button>
+      </div>
+    </div>
+
+    <!-- Clear Confirmation Overlay -->
+    <div id="chat-confirm-overlay" class="chat-settings-overlay">
+      <h3 style="margin-bottom: var(--spacing-s); font-size: 1.1rem; color: var(--color-text-primary);">Clear Conversation?</h3>
+      <p style="font-size: 0.8125rem; margin-bottom: var(--spacing-m); line-height: 1.4; color: var(--color-text-secondary);">
+        Are you sure you want to clear your conversation history? This action cannot be undone.
+      </p>
+
+      <div style="display: flex; gap: var(--spacing-s); justify-content: flex-end; margin-top: auto;">
+        <button id="confirm-cancel-btn" class="btn btn-secondary btn-pill">Cancel</button>
+        <button id="confirm-clear-btn" class="btn btn-pill" style="background-color: var(--color-danger); color: var(--color-text-on-brand); border: none; padding: 0 var(--spacing-m); cursor: pointer;">Clear Chat</button>
+      </div>
+    </div>
+
+    <!-- Chat Toolbar -->
+    <div class="chat-toolbar">
+      <button id="toolbar-clear-btn" class="chat-toolbar-btn" aria-label="Clear conversation history">
+        <span>🗑️</span> Clear
+      </button>
+      <button id="toolbar-copy-btn" class="chat-toolbar-btn" aria-label="Copy last response">
+        <span>📋</span> Copy Last
+      </button>
+      <button id="toolbar-download-btn" class="chat-toolbar-btn" aria-label="Download chat transcript">
+        <span>📥</span> Download
+      </button>
+    </div>
+
+    <!-- Chat Messages View Area -->
+    <div id="chat-messages-area" class="chat-messages-area">
+      <!-- Welcome message and suggested questions will load here -->
+    </div>
+
+    <!-- Chat Input Area -->
+    <div class="chat-input-row">
+      <textarea id="chat-input-field" class="chat-input-field" placeholder="Ask about symptoms, prevention..."
+        aria-label="Message chatbot" rows="1"></textarea>
+      <button id="chat-send-btn" class="chat-send-btn" aria-label="Send Message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Include Core JavaScript Files (Order is important) -->
+  <script src="js/utils.js?v=1.1.2"></script>
+  <script src="js/theme.js?v=1.1.2"></script>
+  <script src="js/knowledgeBase.js?v=1.1.2"></script>
+  <script src="js/search.js?v=1.1.2"></script>
+  <script src="js/safety.js?v=1.1.2"></script>
+  <script src="js/rag.js?v=1.1.2"></script>
+  <script src="js/groq.js?v=1.1.2"></script>
+  <script src="js/chatbot.js?v=1.1.2"></script>
+  <script src="js/app.js?v=1.1.2"></script>
+</body>
+
+</html>
